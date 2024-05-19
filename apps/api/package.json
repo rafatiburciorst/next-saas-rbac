@@ -1,6 +1,6 @@
 {
     "name": "@saas/api",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "devDependencies": {
         "@saas/eslint-config": "workspace:*",
         "@saas/prettier": "workspace:*",
