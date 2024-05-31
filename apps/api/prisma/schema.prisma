@@ -95,7 +95,7 @@ model Organization {
   name                      String
   slug                      String   @unique
   domain                    String?  @unique
-  userId                    String   @map("user_id")
+  ownerId                   String   @map("owner_id")
   shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
   avatarUrl                 String?  @map("avatar_url")
   createdAt                 DateTime @default(now()) @map("created_at")
@@ -103,7 +103,7 @@ model Organization {
 
   invites  Invite[]
   members  Member[]
-  owner    User      @relation(fields: [userId], references: [id])
+  owner    User      @relation(fields: [ownerId], references: [id])
   projects Project[]
 
   @@map("organizations")
@@ -114,12 +114,12 @@ model Project {
   name           String
   description    String
   slug           String       @unique
-  userId         String       @map("user_id")
+  ownerId        String       @map("owner_id")
   avatarUrl      String?      @map("avatar_url")
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime     @updatedAt @map("updated_at")
   organization   Organization @relation(fields: [organizationId], references: [id])
-  owner          User         @relation(fields: [userId], references: [id])
+  owner          User         @relation(fields: [ownerId], references: [id])
   organizationId String       @map("organization_id")
 
   @@map("projects")
