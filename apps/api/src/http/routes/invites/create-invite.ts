@@ -16,7 +16,7 @@ export async function createInvite(app: FastifyInstance) {
       '/organizations/:slug/invites',
       {
         schema: {
-          tags: ['projects'],
+          tags: ['invites'],
           summary: 'Create a new invite',
           security: [{ bearerAuth: [] }],
           body: z.object({
