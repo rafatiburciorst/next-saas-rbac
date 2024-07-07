@@ -4,7 +4,8 @@
   "private": true,
   "files": [
     "library.json",
-    "node.json"
+    "node.json",
+    "nextjs.json"
   ],
   "license": "MIT"
 }
