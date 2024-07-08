@@ -24,6 +24,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
     },
     async (request, reply) => {
       const { code } = request.body
+      console.log('TOKEN', code)
       const githubOauthUrl = new URL(
         'https://github.com/login/oauth/access_token',
       )
@@ -63,7 +64,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       const gitgubUserData = await gitgubUserResponse.json()
       // https://github.com/login/oauth/authorize?client_id=Ov23liOFdHKDGfT3SU4j&redirect_uri=http://localhost:3000/api/auth/callback&scope=user:email
-      console.log(gitgubUserData)
+      // console.log(gitgubUserData)
 
       const {
         id: githubId,
