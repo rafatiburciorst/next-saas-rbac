@@ -24,7 +24,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
     },
     async (request, reply) => {
       const { code } = request.body
-      console.log('TOKEN', code)
+
       const githubOauthUrl = new URL(
         'https://github.com/login/oauth/access_token',
       )
@@ -48,6 +48,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       const githubAccessTokenData = await githubAccessTokenResponse.json()
 
+
       const { access_token: gitgubAccessToken } = z
         .object({
           access_token: z.string(),
@@ -55,6 +56,8 @@ export async function authenticateWithGithub(app: FastifyInstance) {
           scope: z.string(),
         })
         .parse(githubAccessTokenData)
+
+
 
       const gitgubUserResponse = await fetch('https://api.github.com/user', {
         headers: {
@@ -64,7 +67,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
 
       const gitgubUserData = await gitgubUserResponse.json()
       // https://github.com/login/oauth/authorize?client_id=Ov23liOFdHKDGfT3SU4j&redirect_uri=http://localhost:3000/api/auth/callback&scope=user:email
-      // console.log(gitgubUserData)
+
 
       const {
         id: githubId,
@@ -80,16 +83,19 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         })
         .parse(gitgubUserData)
 
+      console.log('EMAIL')
       if (!email) {
         throw new BadRequestError(
           'Your Github account must have an email to authenticate',
         )
       }
 
+
       let user = await prisma.user.findUnique({
         where: { email },
       })
 
+      console.log('USER', user)
       if (!user) {
         user = await prisma.user.create({
           data: {
